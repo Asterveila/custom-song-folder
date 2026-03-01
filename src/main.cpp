@@ -7,8 +7,8 @@ using namespace geode::prelude;
 
 std::filesystem::path customPath = Mod::get()->getSettingValue<std::filesystem::path>("custom-folder").string() + slash;
 
-$execute {
-    geode::listenForSettingChanges("custom-folder", +[](std::filesystem::path  value) {
+$on_mod(Loaded) {
+    listenForSettingChanges<std::filesystem::path>("custom-folder", +[](std::filesystem::path  value) {
         customPath = value.string() + slash;
     });
 };
@@ -46,4 +46,5 @@ class $modify(MusicDownloadManager) {
 
         return newSongs;
     }
+
 };
